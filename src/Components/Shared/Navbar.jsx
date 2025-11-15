@@ -1,7 +1,7 @@
 import React from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link } from "react-router";
-import logo from "../assets/images/logo.png";
+import logo from "../../assets/images/logo.png";
 const Navbar = () => {
   const links = (
     <>
@@ -25,7 +25,7 @@ const Navbar = () => {
   );
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm urbanist">
+      <div className="navbar bg-white rounded-2xl shadow-sm urbanist ">
         <div className="navbar-start">
           <div className="dropdown">
             <div
