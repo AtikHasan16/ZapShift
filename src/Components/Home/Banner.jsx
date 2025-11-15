@@ -22,16 +22,16 @@ const Banner = () => {
           speed={1200}
           loop
           modules={[Pagination, Autoplay]}
-          className="mySwiper"
+          className="mySwiper my-4 md:my-10"
         >
           <SwiperSlide>
-            <img src={slider1} alt="" />
+            <img src={slider1} className="w-full md:h-[700px]" alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={slider2} alt="" />
+            <img src={slider2} className="w-full md:h-[700px]" alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={slider3} alt="" />
+            <img src={slider3} className="w-full md:h-[700px]" alt="" />
           </SwiperSlide>
         </Swiper>
         <div className=" hidden md:flex gap-2 absolute bottom-10  left-20 z-1">
