@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import Banner from "../Components/Home/Banner";
 import HowWorks from "../Components/Home/HowWorks";
 import OurService from "../Components/Home/OurService";
@@ -8,7 +8,16 @@ import Merchant from "../Components/Home/Merchant";
 import Review from "../Components/Home/Review";
 import Question from "../Components/Home/Question";
 
+const reviewPromise = fetch("/reviews.json")
+  .then((data) => data.json())
+  .then((data) => {
+    return data;
+  });
+
 const Home = () => {
+  const reviewData = use(reviewPromise);
+
+
   return (
     <div className="urbanist">
       <Banner></Banner>
@@ -32,7 +41,7 @@ const Home = () => {
         <Merchant></Merchant>
       </section>
       <section>
-        <Review></Review>
+        <Review reviewData={reviewData}></Review>
       </section>
       <section>
         <Question></Question>

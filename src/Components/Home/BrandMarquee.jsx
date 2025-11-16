@@ -7,6 +7,8 @@ import brand5 from "../../assets/brands/star.png";
 import brand6 from "../../assets/brands/start_people.png";
 import Marquee from "react-fast-marquee";
 const BrandMarquee = () => {
+  const brand = [brand1, brand2, brand3, brand4, brand5, brand6];
+
   return (
     <div className="my-10 border-b-2 border-dashed border-[#03373D]/40 pb-10">
       <Marquee
@@ -17,12 +19,9 @@ const BrandMarquee = () => {
         gradientWidth={300}
         gradientColor="#EAECED"
       >
-        <img src={brand1} alt="" className="mx-4" />
-        <img src={brand2} alt="" className="mx-4" />
-        <img src={brand3} alt="" className="mx-4" />
-        <img src={brand4} alt="" className="mx-4" />
-        <img src={brand5} alt="" className="mx-4" />
-        <img src={brand6} alt="" className="mx-4" />
+        {brand.map((brand, index) => (
+          <img key={index} src={brand} alt="" className="mx-10" />
+        ))}
       </Marquee>
     </div>
   );
