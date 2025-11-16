@@ -7,6 +7,13 @@
   --color-secondary: teal;
   --color-primary-content: rgba(96, 96, 96, 1);
 }
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: rgba(202, 235, 102, 1);
+  --color-secondary: teal;
+  --color-primary-content: rgba(96, 96, 96, 1);
+}
 
 .urbanist {
   font-family: "Urbanist", sans-serif;

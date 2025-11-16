@@ -9,35 +9,35 @@ const OurServiceCard = [
       "We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.",
   },
   {
-    id: 1,
+    id: 2,
     image: service,
     title: "Express & Standard Delivery",
     description:
       "We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.",
   },
   {
-    id: 1,
+    id: 3,
     image: service,
     title: "Express & Standard Delivery",
     description:
       "We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.",
   },
   {
-    id: 1,
+    id: 4,
     image: service,
     title: "Express & Standard Delivery",
     description:
       "We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.",
   },
   {
-    id: 1,
+    id: 5,
     image: service,
     title: "Express & Standard Delivery",
     description:
       "We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.",
   },
   {
-    id: 1,
+    id: 6,
     image: service,
     title: "Express & Standard Delivery",
     description:
@@ -55,9 +55,12 @@ const OurService = () => {
           time, every time.
         </p>
       </div>
-      <div className="grid grid-cols-3  gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3  gap-6">
         {OurServiceCard.map((data) => (
-          <div className="bg-white rounded-2xl p-10 space-y-4 hover:bg-primary transition-colors">
+          <div
+            key={data.id}
+            className="bg-white rounded-2xl p-10 space-y-4 hover:bg-primary transition-colors"
+          >
             <figure className="">
               <img
                 src={data.image}

@@ -7,7 +7,7 @@ import Container from "../Components/Container";
 const HomeLayout = () => {
   return (
     <>
-      <div className="bg-base-300 p-2 sm:p-6">
+      <div className="bg-[#EAECED] p-2 sm:p-6">
         <Container>
           <header>
             <Navbar></Navbar>
