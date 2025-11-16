@@ -5,6 +5,8 @@ import Error from "../Pages/Error";
 import Services from "../Pages/Services";
 import Home from "../Pages/Home";
 import Coverage from "../Pages/Coverage";
+import axios from "axios";
+import Spinner from "../Components/Spinner";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,12 @@ const router = createBrowserRouter([
     children: [
       { index: "/", element: <Home></Home> },
       { path: "/service", element: <Services></Services> },
-      { path: "/coverage", element: <Coverage></Coverage> },
+      {
+        path: "/coverage",
+        element: <Coverage></Coverage>,
+        loader: () => axios("/warehouses.json"),
+        hydrateFallbackElement: <Spinner></Spinner>,
+      },
     ],
   },
 ]);

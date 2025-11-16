@@ -2,7 +2,11 @@ import React from "react";
 import { BiEnvelope, BiSearch } from "react-icons/bi";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useLoaderData } from "react-router";
 const Coverage = () => {
+  const centerData = useLoaderData();
+  const serviceCenter = centerData.data;
+
   const position = [23.8041, 90.4152];
 
   return (
@@ -35,13 +39,22 @@ const Coverage = () => {
               center={position}
               zoom={7}
               scrollWheelZoom={false}
-              className="h-200 rounded-2xl"
+              className="h-200 rounded-2xl "
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={position}></Marker>
+              {serviceCenter.map((data, index) => (
+                <Marker key={index} position={[data.latitude, data.longitude]}>
+                  <Popup>
+                    <strong>{data.district}</strong>
+
+                    <br />
+                    {data.covered_area.join(", ")}
+                  </Popup>
+                </Marker>
+              ))}
             </MapContainer>
           </div>
         </div>
