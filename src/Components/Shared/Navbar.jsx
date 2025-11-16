@@ -1,31 +1,42 @@
 import React from "react";
 import { BiMenu } from "react-icons/bi";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import logo from "../../assets/images/logo.png";
 const Navbar = () => {
+  const hover = "hover:bg-primary hover:rounded-xl";
   const links = (
     <>
       <li>
         {" "}
-        <Link to={"/service"}>Services</Link>
+        <NavLink to={"/service"} className={hover}>
+          Services
+        </NavLink>
       </li>
       <li>
-        <Link to={"/coverage"}>Coverage</Link>
+        <NavLink to={"/coverage"} className={hover}>
+          Coverage
+        </NavLink>
       </li>
       <li>
-        <Link to={"/about"}>About Us</Link>
+        <NavLink to={"/about"} className={hover}>
+          About Us
+        </NavLink>
       </li>
       <li>
-        <Link to={"/pricing"}>Pricing</Link>
+        <NavLink to={"/pricing"} className={hover}>
+          Pricing
+        </NavLink>
       </li>
       <li>
-        <Link to={"/be-a-rider"}>Be a Rider</Link>
+        <NavLink to={"/be-a-rider"} className={hover}>
+          Be a Rider
+        </NavLink>
       </li>
     </>
   );
   return (
     <div>
-      <div className="navbar bg-white rounded-2xl shadow-sm urbanist ">
+      <div className="navbar bg-white rounded-2xl shadow-sm urbanist md:p-5">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -37,7 +48,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-primary-content"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-primary-content text-lg font-semibold"
             >
               {links}
             </ul>
@@ -54,7 +65,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal px-1 text-lg font-semibold">
+            {links}
+          </ul>
         </div>
         <div className="navbar-end gap-2">
           <Link

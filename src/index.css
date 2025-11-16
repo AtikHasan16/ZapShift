@@ -23,5 +23,9 @@
 }
 
 .btn {
-  @apply border rounded-xl font-bold text-lg px-8 py-4;
+  @apply border rounded-xl font-bold text-lg md:px-8 py-4;
+}
+
+.active {
+  @apply bg-primary rounded-xl;
 }

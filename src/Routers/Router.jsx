@@ -4,6 +4,7 @@ import Error from "../Pages/Error";
 
 import Services from "../Pages/Services";
 import Home from "../Pages/Home";
+import Coverage from "../Pages/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ const router = createBrowserRouter([
 
     children: [
       { index: "/", element: <Home></Home> },
-      { path: "service", element: <Services></Services> },
+      { path: "/service", element: <Services></Services> },
+      { path: "/coverage", element: <Coverage></Coverage> },
     ],
   },
 ]);
