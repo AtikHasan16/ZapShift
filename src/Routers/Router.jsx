@@ -11,6 +11,8 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Auth/Login";
 import Registration from "../Pages/Auth/Registration";
 import ForgetPass from "../Pages/Auth/ForgetPass";
+import GuestRouter from "./Private/GuestRouter";
+import PrivateRouter from "./Private/PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,11 @@ const router = createBrowserRouter([
       { path: "/service", element: <Services></Services> },
       {
         path: "/coverage",
-        element: <Coverage></Coverage>,
+        element: (
+          <PrivateRouter>
+            <Coverage></Coverage>
+          </PrivateRouter>
+        ),
         loader: () => axios("/warehouses.json"),
         hydrateFallbackElement: <Spinner></Spinner>,
       },
@@ -35,15 +41,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <GuestRouter>
+            <Login></Login>
+          </GuestRouter>
+        ),
       },
       {
         path: "/registration",
-        element: <Registration></Registration>,
+        element: (
+          <GuestRouter>
+            <Registration></Registration>
+          </GuestRouter>
+        ),
       },
       {
         path: "forget",
-        element: <ForgetPass></ForgetPass>,
+        element: (
+          <GuestRouter>
+            <ForgetPass></ForgetPass>
+          </GuestRouter>
+        ),
       },
     ],
   },

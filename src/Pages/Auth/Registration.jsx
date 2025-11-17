@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
+import AuthContext from "../../Contexts/Context/AuthContext";
 const Registration = () => {
+  const { emailRegistration } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
   const handleRegistration = (data) => {
     console.log(data);
+    emailRegistration(data.email, data.password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../Contexts/Context/AuthContext";
+import { Navigate } from "react-router";
+import Spinner from "../../Components/Spinner";
 
 const GuestRouter = ({ children }) => {
-  return <div>{children}</div>;
+  const { user } = useContext(AuthContext);
+
+  if (!user) {
+    return children;
+  }
+  return <Navigate to={"/"}></Navigate>;
 };
 
 export default GuestRouter;

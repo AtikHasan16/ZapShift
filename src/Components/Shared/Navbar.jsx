@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/images/logo.png";
+import AuthContext from "../../Contexts/Context/AuthContext";
+
 const Navbar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
   const hover = "hover:bg-primary hover:rounded-xl";
   const links = (
     <>
@@ -70,12 +73,21 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-2">
-          <Link
-            to={"/login"}
-            className="btn text-primary-content border-2 border-gray-400"
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <button
+              onClick={() => logoutUser()}
+              className="btn text-primary-content border-2 border-gray-400"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to={"/login"}
+              className="btn text-primary-content border-2 border-gray-400"
+            >
+              Sign In
+            </Link>
+          )}
           <div className="hidden md:block">
             <Link to={"/be-a-rider"} className="btn  bg-primary">
               Be a rider

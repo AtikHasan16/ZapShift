@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
+import AuthContext from "../../Contexts/Context/AuthContext";
 
 const Login = () => {
+  const { emailLogin } = useContext(AuthContext);
   const { handleSubmit, register } = useForm();
-  const handleLogin = () => {};
+  const handleLogin = (data) => {
+    console.log(data);
+
+    emailLogin(data.email, data.password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="m-6 md:m-20 ">
       <div className="space-y-4">
