@@ -6,8 +6,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const Review = ({ reviewData }) => {
-  console.log(reviewData);
-
   return (
     <div className="my-10">
       <div>
