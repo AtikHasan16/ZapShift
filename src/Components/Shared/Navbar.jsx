@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/images/logo.png";
-import AuthContext from "../../Contexts/Context/AuthContext";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useAuth();
   const hover = "hover:bg-primary hover:rounded-xl";
   const links = (
     <>
@@ -35,6 +34,11 @@ const Navbar = () => {
           Be a Rider
         </NavLink>
       </li>
+      <li>
+        <NavLink to={"/send"} className={hover}>
+          Send Parcel
+        </NavLink>
+      </li>
     </>
   );
   return (
@@ -51,7 +55,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-primary-content text-lg font-semibold"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box  mt-3 w-52 p-2 shadow text-primary-content text-lg font-semibold"
             >
               {links}
             </ul>

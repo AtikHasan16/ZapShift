@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
-import AuthContext from "../../Contexts/Context/AuthContext";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
-  const { emailLogin } = useContext(AuthContext);
+  const { emailLogin, googleLogin } = useAuth();
+
   const { handleSubmit, register } = useForm();
   const handleLogin = (data) => {
     console.log(data);
@@ -18,8 +19,19 @@ const Login = () => {
         console.log(error);
       });
   };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="m-6 md:m-20 ">
+      <title>Login | ZapShift</title>
       <div className="space-y-4">
         <h1 className="text-4xl font-black ">Welcome Back</h1>
         <p>Login with ZapShift</p>
@@ -62,7 +74,11 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button type="button" className="btn btn-block">
+        <button
+          onClick={handleGoogleLogin}
+          type="button"
+          className="btn btn-block"
+        >
           {" "}
           <FcGoogle></FcGoogle> Login with google
         </button>

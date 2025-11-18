@@ -13,6 +13,8 @@ import Registration from "../Pages/Auth/Registration";
 import ForgetPass from "../Pages/Auth/ForgetPass";
 import GuestRouter from "./Private/GuestRouter";
 import PrivateRouter from "./Private/PrivateRouter";
+import AboutUs from "../Pages/AboutUs";
+import SendParcel from "../Pages/SendParcel";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
             <Coverage></Coverage>
           </PrivateRouter>
         ),
+        loader: () => axios("/warehouses.json"),
+        hydrateFallbackElement: <Spinner></Spinner>,
+      },
+      {
+        path: "/about",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/send",
+        element: <SendParcel></SendParcel>,
         loader: () => axios("/warehouses.json"),
         hydrateFallbackElement: <Spinner></Spinner>,
       },
