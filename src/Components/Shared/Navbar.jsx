@@ -24,6 +24,13 @@ const Navbar = () => {
           About Us
         </NavLink>
       </li>
+      {user && (
+        <li>
+          <NavLink to={"/dashboard"} className={hover}>
+            Dashboard
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink to={"/pricing"} className={hover}>
           Pricing

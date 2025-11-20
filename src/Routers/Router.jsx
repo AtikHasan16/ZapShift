@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import HomeLayout from "../Layouts/HomeLayout";
 import Error from "../Pages/Error";
-
 import Services from "../Pages/Services";
 import Home from "../Pages/Home";
 import Coverage from "../Pages/Coverage";
@@ -16,6 +15,7 @@ import PrivateRouter from "./Private/PrivateRouter";
 import AboutUs from "../Pages/AboutUs";
 import SendParcel from "../Pages/SendParcel";
 import BeRider from "../Pages/BeRider";
+import Dashboard from "../Pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +50,10 @@ const router = createBrowserRouter([
         path: "/be-a-rider",
         element: <BeRider></BeRider>,
         loader: () => axios("/warehouses.json"),
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
       },
     ],
   },
