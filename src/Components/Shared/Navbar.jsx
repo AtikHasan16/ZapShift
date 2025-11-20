@@ -30,11 +30,6 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/be-a-rider"} className={hover}>
-          Be a Rider
-        </NavLink>
-      </li>
-      <li>
         <NavLink to={"/send"} className={hover}>
           Send Parcel
         </NavLink>

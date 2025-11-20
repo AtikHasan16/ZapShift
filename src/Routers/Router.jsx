@@ -15,6 +15,7 @@ import GuestRouter from "./Private/GuestRouter";
 import PrivateRouter from "./Private/PrivateRouter";
 import AboutUs from "../Pages/AboutUs";
 import SendParcel from "../Pages/SendParcel";
+import BeRider from "../Pages/BeRider";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
         element: <SendParcel></SendParcel>,
         loader: () => axios("/warehouses.json"),
         hydrateFallbackElement: <Spinner></Spinner>,
+      },
+      {
+        path: "/be-a-rider",
+        element: <BeRider></BeRider>,
+        loader: () => axios("/warehouses.json"),
       },
     ],
   },

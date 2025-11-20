@@ -15,8 +15,8 @@ const SendParcel = () => {
     formState: { error },
   } = useForm();
 
-  const senderRegion = useWatch({ control, name: "sender_region" });
-  const receiverRegion = useWatch({ control, name: "receiver_region" });
+  const senderRegion = useWatch({ control, name: "sender_region", defaultValue: 'Dhaka'});
+  const receiverRegion = useWatch({ control, name: "receiver_region", defaultValue: 'Dhaka' });
   const districtsByRegion = (region) => {
     const regionDistricts = data.filter((d) => d.region === region);
     const district = regionDistricts.map((d) => d.district);
