@@ -2,21 +2,32 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
-
+import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
+import Spinner from "../Components/Spinner";
 const SendParcel = () => {
   const { data } = useLoaderData();
   const duplicate = data.map((d) => d.region);
   const regions = [...new Set(duplicate)];
+  const axiosSecure = useAxios();
+  const { user, loading } = useAuth();
+  const { control, register, handleSubmit } = useForm();
 
-  const {
+  const senderRegion = useWatch({
     control,
-    register,
-    handleSubmit,
-    formState: { error },
-  } = useForm();
+    name: "sender_region",
+    defaultValue: "Dhaka",
+  });
+  const receiverRegion = useWatch({
+    control,
+    name: "receiver_region",
+    defaultValue: "Dhaka",
+  });
 
-  const senderRegion = useWatch({ control, name: "sender_region", defaultValue: 'Dhaka'});
-  const receiverRegion = useWatch({ control, name: "receiver_region", defaultValue: 'Dhaka' });
+  if (loading) {
+    return <Spinner></Spinner>;
+  }
+
   const districtsByRegion = (region) => {
     const regionDistricts = data.filter((d) => d.region === region);
     const district = regionDistricts.map((d) => d.district);
@@ -45,12 +56,13 @@ const SendParcel = () => {
           : extraWeight * 40 + 40;
 
         cost = mainCharge + extraCharge;
+        data.cost = cost;
       }
     }
     console.log(cost);
     Swal.fire({
       title: "Confirm your order",
-      text: `your delivery charge is ${cost}`,
+      text: `your delivery charge is ${cost} taka`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -58,6 +70,9 @@ const SendParcel = () => {
       confirmButtonText: "Yes, confirm it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log("Data Inserted", res.data);
+        });
         // Swal.fire({
         //   title: "Confirmed!",
         //   text: "Your confirmation has been received",
@@ -137,21 +152,21 @@ const SendParcel = () => {
                 <input
                   type="text"
                   name="sender_name"
-                  id=""
+                  defaultValue={user?.displayName}
                   placeholder="Sender Name"
                   className="input w-full"
                   {...register("sender_name")}
                 />
               </div>
               <div className="flex flex-col gap-2 w-full">
-                <label>Sender Address</label>
+                <label>Sender Email</label>
                 <input
-                  type="text"
-                  name="sender_address"
-                  id=""
-                  placeholder="Address"
+                  type="email"
+                  name="sender_email"
+                  defaultValue={user?.email}
+                  placeholder="Email"
                   className="input w-full"
-                  {...register("sender_address")}
+                  {...register("sender_email")}
                 />
               </div>
               <div className="flex flex-col gap-2 w-full">
@@ -215,14 +230,14 @@ const SendParcel = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 w-full">
-                <label>Receiver Address</label>
+                <label>Receiver Email</label>
                 <input
-                  type="text"
-                  name="receiver_address"
+                  type="email"
+                  name="receiver_email"
                   id=""
-                  placeholder="Address"
+                  placeholder="Email"
                   className="input w-full"
-                  {...register("receiver_address")}
+                  {...register("receiver_email")}
                 />
               </div>
               <div className="flex flex-col gap-2 w-full">

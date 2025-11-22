@@ -15,7 +15,9 @@ import PrivateRouter from "./Private/PrivateRouter";
 import AboutUs from "../Pages/AboutUs";
 import SendParcel from "../Pages/SendParcel";
 import BeRider from "../Pages/BeRider";
-import Dashboard from "../Pages/Dashboard";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import DashLayout from "../Layouts/DashLayout";
+import Deliveries from "../Pages/Dashboard/Deliveries";
 
 const router = createBrowserRouter([
   {
@@ -50,10 +52,7 @@ const router = createBrowserRouter([
         path: "/be-a-rider",
         element: <BeRider></BeRider>,
         loader: () => axios("/warehouses.json"),
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        hydrateFallbackElement: <Spinner></Spinner>,
       },
     ],
   },
@@ -84,6 +83,21 @@ const router = createBrowserRouter([
             <ForgetPass></ForgetPass>
           </GuestRouter>
         ),
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <PrivateRouter>
+        <DashLayout></DashLayout>
+      </PrivateRouter>
+    ),
+    children: [
+      { path: "/dashboard", element: <Dashboard></Dashboard> },
+      {
+        path: "/deliveries",
+        element: <Deliveries></Deliveries>,
       },
     ],
   },

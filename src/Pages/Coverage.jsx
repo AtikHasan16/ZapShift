@@ -10,7 +10,7 @@ const Coverage = () => {
   const position = [23.8041, 90.4152];
 
   return (
-    <div className="urbanist bg-white p-10 md:p-15 rounded-4xl my-10 s">
+    <div className="urbanist bg-white p-10 md:p-15 rounded-4xl my-10 ">
       <div className="space-y-10">
         <h1 className="text-5xl font-bold text-cyan-950">
           We are available in 64 districts
