@@ -57,6 +57,7 @@ const SendParcel = () => {
 
         cost = mainCharge + extraCharge;
         data.cost = cost;
+        console.log(cost);
       }
     }
     console.log(cost);

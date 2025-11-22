@@ -2,13 +2,53 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const Deliveries = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
+  const { data = [], refetch } = useQuery({
+    queryKey: ["parcels", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
+      return res.data;
+    },
+  });
+  console.log(data);
+
+  const handleParcelDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/parcels/${id}`)
+          .then((res) => {
+            refetch();
+            console.log(res);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
-    <div className="urbanist">
+    <div className="urbanist ">
       <h1 className="text-4xl font-bold">All Deliveries</h1>
 
       <div className="grid grid-cols-3 gap-6 my-6">
@@ -31,24 +71,39 @@ const Deliveries = () => {
             {/* head */}
             <thead>
               <tr>
+                <th>Serial No.</th>
                 <th>Cons. ID</th>
                 <th>Parcel Name</th>
                 <th>Receiver Info</th>
+                <th>Delivery Charge</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {/* row 1 */}
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>
-                  <button className="bg-blue-400 text-white p-1 rounded">
-                    View
-                  </button>
-                </td>
-              </tr>
+              {data.map((data, i) => (
+                <tr key={data._id}>
+                  <th>{i + 1}</th>
+                  <th>{data._id.slice(20)}</th>
+                  <td>{data?.parcel_name}</td>
+                  <td>Quality Control Specialist</td>
+                  <td>{data.cost}</td>
+                  <td className="flex gap-2">
+                    <button className="bg-blue-400 text-white p-1 rounded">
+                      View
+                    </button>
+                    <button className="bg-lime-400 text-black p-1 px-2 rounded">
+                      Pay
+                    </button>
+                    <button
+                      onClick={() => handleParcelDelete(data._id)}
+                      className="bg-red-500 text-white p-1 px-2 rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
