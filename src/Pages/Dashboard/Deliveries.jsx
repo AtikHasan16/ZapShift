@@ -3,18 +3,19 @@ import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const Deliveries = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
-  const { data = [], refetch } = useQuery({
+  const { data: parcels = [], refetch } = useQuery({
     queryKey: ["parcels", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
       return res.data;
     },
   });
-  console.log(data);
+  console.log(parcels);
 
   const handleParcelDelete = (id) => {
     console.log(id);
@@ -31,21 +32,25 @@ const Deliveries = () => {
         axiosSecure
           .delete(`/parcels/${id}`)
           .then((res) => {
-            refetch();
             console.log(res);
+            if (res.status === 200) {
+              refetch();
+
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
           })
           .catch((error) => {
             console.log(error);
           });
-
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
       }
     });
   };
+
+  const handlePayment = () => {};
 
   return (
     <div className="urbanist ">
@@ -81,7 +86,7 @@ const Deliveries = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {data.map((data, i) => (
+              {parcels.map((data, i) => (
                 <tr key={data._id}>
                   <th>{i + 1}</th>
                   <th>{data._id.slice(20)}</th>
@@ -92,9 +97,16 @@ const Deliveries = () => {
                     <button className="bg-blue-400 text-white p-1 rounded">
                       View
                     </button>
-                    <button className="bg-lime-400 text-black p-1 px-2 rounded">
-                      Pay
-                    </button>
+                    {data.paymentState ? (
+                      "Paid"
+                    ) : (
+                      <Link
+                        to={`/payment/${data._id}`}
+                        className="bg-lime-400 text-black p-1 px-2 rounded"
+                      >
+                        Pay
+                      </Link>
+                    )}
                     <button
                       onClick={() => handleParcelDelete(data._id)}
                       className="bg-red-500 text-white p-1 px-2 rounded"

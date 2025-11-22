@@ -18,6 +18,7 @@ import BeRider from "../Pages/BeRider";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashLayout from "../Layouts/DashLayout";
 import Deliveries from "../Pages/Dashboard/Deliveries";
+import Payment from "../Pages/Dashboard/Payment";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: "/deliveries",
         element: <Deliveries></Deliveries>,
+      },
+      {
+        path: "/payment/:id",
+        element: <Payment></Payment>,
       },
     ],
   },
