@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
@@ -12,7 +12,7 @@ const SendParcel = () => {
   const axiosSecure = useAxios();
   const { user, loading } = useAuth();
   const { control, register, handleSubmit } = useForm();
-
+  const navigate = useNavigate();
   const senderRegion = useWatch({
     control,
     name: "sender_region",
@@ -73,13 +73,17 @@ const SendParcel = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log("Data Inserted", res.data);
+          if (res.data.insertedId) {
+            console.log("Data Inserted", res.data);
+            Swal.fire({
+              title: "Confirmed! Pay Now",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+            navigate("/deliveries");
+          }
         });
-        // Swal.fire({
-        //   title: "Confirmed!",
-        //   text: "Your confirmation has been received",
-        //   icon: "success",
-        // });
       }
     });
   };

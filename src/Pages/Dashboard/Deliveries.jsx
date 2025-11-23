@@ -4,6 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import { FcOk } from "react-icons/fc";
 
 const Deliveries = () => {
   const { user } = useAuth();
@@ -15,6 +16,8 @@ const Deliveries = () => {
       return res.data;
     },
   });
+  const paidParcels = parcels.filter((data) => data.paymentStatus);
+
   console.log(parcels);
 
   const handleParcelDelete = (id) => {
@@ -66,8 +69,8 @@ const Deliveries = () => {
           <h1>{}</h1>
         </div>
         <div className="bg-white rounded-2xl p-6">
-          <p>Paid Return</p>
-          <h1>{}</h1>
+          <p>Paid </p>
+          <h1 className="text-6xl font-bold">0{paidParcels.length}</h1>
         </div>
       </div>
       <div className="my-10">
@@ -97,16 +100,20 @@ const Deliveries = () => {
                     <button className="bg-blue-400 text-white p-1 rounded">
                       View
                     </button>
-                    {data.paymentState ? (
-                      "Paid"
-                    ) : (
-                      <Link
-                        to={`/payment/${data._id}`}
-                        className="bg-lime-400 text-black p-1 px-2 rounded"
-                      >
-                        Pay
-                      </Link>
-                    )}
+                    <button>
+                      {data.paymentStatus ? (
+                        <span className="flex justify-center items-center gap-1 border rounded p-1 px-2">
+                          <FcOk></FcOk> Paid
+                        </span>
+                      ) : (
+                        <Link
+                          to={`/payment/${data._id}`}
+                          className="bg-lime-400 text-black p-1 px-2 rounded"
+                        >
+                          Pay
+                        </Link>
+                      )}
+                    </button>
                     <button
                       onClick={() => handleParcelDelete(data._id)}
                       className="bg-red-500 text-white p-1 px-2 rounded"
