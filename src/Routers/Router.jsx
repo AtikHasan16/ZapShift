@@ -19,6 +19,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashLayout from "../Layouts/DashLayout";
 import Deliveries from "../Pages/Dashboard/Deliveries";
 import Payment from "../Pages/Dashboard/Payment";
+import PaymentCanceled from "../Pages/Dashboard/PaymentCanceled";
+import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +105,14 @@ const router = createBrowserRouter([
       {
         path: "/payment/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "/payment-cancel",
+        element: <PaymentCanceled></PaymentCanceled>,
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
       },
     ],
   },

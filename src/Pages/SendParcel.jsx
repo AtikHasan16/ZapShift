@@ -45,6 +45,7 @@ const SendParcel = () => {
 
     if (isDocument) {
       cost = sameDistrict ? 60 : 80;
+      data.cost = cost;
     } else {
       if (parcelWeight <= 3) {
         cost = sameDistrict ? 110 : 150;

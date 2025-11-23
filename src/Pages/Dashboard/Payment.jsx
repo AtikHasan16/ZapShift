@@ -9,14 +9,14 @@ const Payment = () => {
   const { id } = useParams();
   console.log(id);
 
-  const { data, isLoading } = useQuery({
+  const { data: parcel = [], isLoading } = useQuery({
     queryKey: ["parcels", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels/${id}`);
       return res.data;
     },
   });
-  console.log(data);
+  console.log(parcel);
 
   if (isLoading) {
     return (
@@ -26,7 +26,27 @@ const Payment = () => {
     );
   }
 
-  return <div>Payment {data.cost} TK</div>;
+  const handlePayment = async () => {
+    const paymentInfo = {
+      cost: parcel.cost,
+      parcelId: parcel._id,
+      sender_email: parcel.sender_email,
+      parcel_name: parcel.parcel_name,
+    };
+
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    console.log(res.data);
+    window.location.href = res.data.url;
+  };
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold">Payment {parcel.cost} TK</h1>
+      <button onClick={handlePayment} className="btn bg-lime-400">
+        Pay
+      </button>
+    </div>
+  );
 };
 
 export default Payment;

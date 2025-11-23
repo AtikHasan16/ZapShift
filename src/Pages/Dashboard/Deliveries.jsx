@@ -50,7 +50,7 @@ const Deliveries = () => {
     });
   };
 
-  const handlePayment = () => {};
+  // const handlePayment = () => {};
 
   return (
     <div className="urbanist ">
@@ -59,7 +59,7 @@ const Deliveries = () => {
       <div className="grid grid-cols-3 gap-6 my-6">
         <div className="bg-white rounded-2xl p-6">
           <p>Total</p>
-          <h1>{}</h1>
+          <h1 className="text-6xl font-bold">0{parcels.length}</h1>
         </div>
         <div className="bg-white rounded-2xl p-6">
           <p>Return</p>
