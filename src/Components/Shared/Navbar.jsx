@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo.png";
 import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logoutUser } = useAuth();
+  const { user, logOutUser } = useAuth();
   const hover = "hover:bg-primary hover:rounded-xl";
   const links = (
     <>
@@ -81,7 +81,7 @@ const Navbar = () => {
         <div className="navbar-end gap-2">
           {user ? (
             <button
-              onClick={() => logoutUser()}
+              onClick={() => logOutUser()}
               className="btn text-primary-content border-2 border-gray-400"
             >
               Logout

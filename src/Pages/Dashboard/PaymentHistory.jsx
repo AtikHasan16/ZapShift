@@ -87,8 +87,8 @@ const PaymentHistoryTable = () => {
 
                 {/* Action Button */}
                 <td className="py-4 px-4">
-                  <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600 border-none">
-                    View
+                  <button className="p-2 px-4 font-semibold rounded bg-blue-500 text-white hover:bg-blue-600 border-none">
+                    Track Parcel
                   </button>
                 </td>
               </tr>
