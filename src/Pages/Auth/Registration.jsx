@@ -21,7 +21,7 @@ const Registration = () => {
           email: data.email,
           displayName: data.name,
           photoURL: data.photoURL,
-          phoneNumber: data.phone,
+          signInWith: "UserInfo",
         };
         axiosSecure.post("/users", profileInfo).then((res) => {
           console.log("user created in the database", res.data);
@@ -48,6 +48,16 @@ const Registration = () => {
     googleLogin()
       .then((result) => {
         console.log(result);
+
+        const profileInfo = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+          signInWith: "Google",
+        };
+        axiosSecure.post("/users", profileInfo).then((res) => {
+          console.log("Server Message", res.data);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -71,15 +81,7 @@ const Registration = () => {
               {...register("name")}
             />
           </div>
-          <div>
-            <label className=" text-xl">Phone</label>
-            <input
-              type="number"
-              className="input rounded-xl input-lg w-full"
-              placeholder="phone"
-              {...register("phone")}
-            />
-          </div>
+
           <div>
             <label className=" text-xl">Photo URL</label>
             <input

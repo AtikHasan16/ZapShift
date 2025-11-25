@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useAxios from "../../Hooks/useAxios";
 
 const Login = () => {
   const { emailLogin, googleLogin } = useAuth();
-
+  const axiosSecure = useAxios();
   const { handleSubmit, register } = useForm();
   const handleLogin = (data) => {
     console.log(data);
@@ -24,6 +25,16 @@ const Login = () => {
     googleLogin()
       .then((result) => {
         console.log(result);
+
+        const profileInfo = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+          signInWith: "Google",
+        };
+        axiosSecure.post("/users", profileInfo).then((res) => {
+          console.log("Server Message", res.data);
+        });
       })
       .catch((error) => {
         console.log(error);
