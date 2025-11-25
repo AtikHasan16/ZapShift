@@ -62,7 +62,13 @@ const Deliveries = () => {
       <div className="grid grid-cols-3 gap-6 my-6">
         <div className="bg-white rounded-2xl p-6">
           <p>Total</p>
-          <h1 className="text-6xl font-bold">0{parcels.length}</h1>
+          <h1 className="text-6xl font-bold">
+            {parcels.length >= 10 ? (
+              parcels.length
+            ) : (
+              <span>0{parcels.length} </span>
+            )}
+          </h1>
         </div>
         <div className="bg-white rounded-2xl p-6">
           <p>Return</p>
@@ -70,7 +76,13 @@ const Deliveries = () => {
         </div>
         <div className="bg-white rounded-2xl p-6">
           <p>Paid </p>
-          <h1 className="text-6xl font-bold">0{paidParcels.length}</h1>
+          <h1 className="text-6xl font-bold">
+            {paidParcels.length >= 10 ? (
+              paidParcels.length
+            ) : (
+              <span>0{paidParcels.length}</span>
+            )}
+          </h1>
         </div>
       </div>
       <div className="my-10">

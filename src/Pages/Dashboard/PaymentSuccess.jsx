@@ -37,7 +37,7 @@ const PaymentSuccess = () => {
             Transaction ID : {paymentInfo?.transactionId}
           </h2>
           <h2 className="text-xl font-bold text-rose-600">
-            Transaction ID : {paymentInfo?.trackingId}
+            Tracking ID : {paymentInfo?.trackingId}
           </h2>
         </div>
         <Link to={"/deliveries"} className="btn btn-sm btn-primary text-black ">

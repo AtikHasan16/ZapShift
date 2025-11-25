@@ -21,6 +21,7 @@ import Deliveries from "../Pages/Dashboard/Deliveries";
 import Payment from "../Pages/Dashboard/Payment";
 import PaymentCanceled from "../Pages/Dashboard/PaymentCanceled";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "/deliveries",
         element: <Deliveries></Deliveries>,
+      },
+      {
+        path: "/paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
       {
         path: "/payment/:id",

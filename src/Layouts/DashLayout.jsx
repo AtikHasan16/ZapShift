@@ -5,7 +5,7 @@ import {} from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import logo from "../assets/images/logo.png";
-import { FaDoorOpen } from "react-icons/fa";
+import { FaDoorOpen, FaHistory } from "react-icons/fa";
 const DashLayout = () => {
   const links = (
     <>
@@ -31,6 +31,17 @@ const DashLayout = () => {
           <span className="is-drawer-close:hidden">All Deliveries</span>
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/paymentHistory"}
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Payment History"
+        >
+          {/* Settings icon */}
+          <FaHistory size={24} />
+          <span className="is-drawer-close:hidden">Payment History</span>
+        </NavLink>
+      </li>
     </>
   );
 
@@ -41,6 +52,14 @@ const DashLayout = () => {
         <div className="drawer-content">
           {/* Navbar */}
           <nav className="navbar py-4  w-full bg-white">
+            <label
+              htmlFor="my-drawer-4"
+              aria-label=""
+              className=" bg-transparent lg:hidden pl-4"
+            >
+              {/* Sidebar toggle icon */}
+              <BsLayoutSidebar size={26}></BsLayoutSidebar>
+            </label>
             <div className="px-4">
               <Link
                 to={"/"}
