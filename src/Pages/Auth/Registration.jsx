@@ -23,8 +23,9 @@ const Registration = () => {
           photoURL: data.photoURL,
           signInWith: "UserInfo",
         };
-        axiosSecure.post("/users", profileInfo).then((res) => {
-          console.log("user created in the database", res.data);
+        // Send user info to the server
+        axiosSecure.post("/users", profileInfo).then(() => {
+          // console.log("user created in the database", res.data);
         });
 
         updateUser({
@@ -48,7 +49,7 @@ const Registration = () => {
     googleLogin()
       .then((result) => {
         console.log(result);
-
+// Create user info object to send to the server
         const profileInfo = {
           email: result.user.email,
           displayName: result.user.displayName,

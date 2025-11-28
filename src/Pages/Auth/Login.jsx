@@ -25,7 +25,7 @@ const Login = () => {
     googleLogin()
       .then((result) => {
         console.log(result);
-
+        // Create user info object to send to the server
         const profileInfo = {
           email: result.user.email,
           displayName: result.user.displayName,

@@ -1,19 +1,50 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import agentPending from "../assets/images/agent-pending.png";
 import { useLoaderData } from "react-router";
+import useAxios from "../Hooks/useAxios";
+import toast from "react-hot-toast";
+import useAuth from "../Hooks/useAuth";
 
 const BeRider = () => {
-  const { register, handleSubmit } = useForm();
-
-  // Assuming we use the same loader as SendParcel for regions/districts
-  // If loader data isn't available, we'll handle it gracefully or it will be undefined
+  const { user } = useAuth();
+  const { control, register, handleSubmit } = useForm();
+  const axiosSecure = useAxios();
   const loaderData = useLoaderData();
   const data = loaderData?.data || [];
 
-  const onSubmit = (data) => {
+  const duplicates = data.map((d) => d.region);
+  const region = [...new Set(duplicates)];
+  const riderRegion = useWatch({
+    control,
+    name: "region",
+    defaultValue: "dhaka",
+  });
+  // console.log(riderRegion);
+
+  const districtByRegion = (region) => {
+    const districts = data.filter((d) => d.region === region);
+    const district = districts.map((d) => d.district);
+    // console.log(district);
+    return district;
+
+    // console.log(region);
+  };
+  // console.log(districtByRegion(riderRegion));
+
+  const handleRiderApplication = (data) => {
     console.log(data);
-    // Handle form submission here
+
+    axiosSecure
+      .post("/riders", data)
+      .then(() => {
+        toast.success("Your application has been submitted");
+      })
+      .catch((error) => {
+        console.error("Error submitting application:", error);
+        toast.error(
+          "There was an error submitting your application. Please try again."
+        );
+      });
   };
 
   return (
@@ -35,10 +66,10 @@ const BeRider = () => {
               Tell us about yourself
             </h2>
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(handleRiderApplication)}
               className="flex flex-col gap-6"
             >
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2 w-full">
                   <label className="font-semibold">Your Name</label>
                   <input
@@ -49,25 +80,64 @@ const BeRider = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
-                  <label className="font-semibold">Your age</label>
+                  <label className="font-semibold">Driving License</label>
                   <input
                     type="number"
-                    placeholder="Your age"
+                    placeholder="Driver License"
                     className="input w-full border-gray-300"
-                    {...register("age", { required: true })}
+                    {...register("driverLicense", { required: true })}
                   />
                 </div>
-              </div>
+                <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-2 w-full">
+                    <label className="font-semibold">Your Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      defaultValue={user?.email}
+                      className="input w-full border-gray-300"
+                      {...register("email", { required: true })}
+                      disabled
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label className="font-semibold">Your age</label>
+                    <input
+                      type="number"
+                      placeholder="Your age"
+                      className="input w-full border-gray-300"
+                      {...register("age", { required: true })}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label className="font-semibold">bike</label>
+                    <input
+                      type="text"
+                      placeholder="Bike Description"
+                      className="input w-full border-gray-300"
+                      {...register("bike", { required: true })}
+                    />
+                  </div>
+                </div>
 
-              <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex flex-col gap-2 w-full">
-                  <label className="font-semibold">Your Email</label>
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    className="input w-full border-gray-300"
-                    {...register("email", { required: true })}
-                  />
+                  <label className="font-semibold">Your region</label>
+                  <select
+                    className="select w-full border-gray-300"
+                    {...register("region", { required: true })}
+                    defaultValue="Pick a browser"
+                  >
+                    <option value="" disabled>
+                      Select your region
+                    </option>
+                    {/* Populating dynamically with unique cities from warehouse data */}
+                    {region.map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <label className="font-semibold">Your District</label>
@@ -80,31 +150,30 @@ const BeRider = () => {
                       Select your District
                     </option>
                     {/* Populating dynamically with unique cities from warehouse data */}
-                    {[...new Set(data.map((item) => item.city))].map(
-                      (city, index) => (
-                        <option key={index} value={city}>
-                          {city}
-                        </option>
-                      )
-                    )}
+                    {districtByRegion(riderRegion).map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2 w-full">
                   <label className="font-semibold">NID No</label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="NID"
                     className="input w-full border-gray-300"
                     {...register("nid", { required: true })}
                   />
                 </div>
+
                 <div className="flex flex-col gap-2 w-full">
                   <label className="font-semibold">Contact</label>
                   <input
-                    type="text"
+                    type="tel"
                     placeholder="Contact"
                     className="input w-full border-gray-300"
                     {...register("contact", { required: true })}
@@ -134,7 +203,7 @@ const BeRider = () => {
                 </select>
               </div>
 
-              <button className="btn bg-[#C1E952] hover:bg-[#b0d64a] text-black font-bold border-none w-full mt-4">
+              <button className="btn btn-primary text-black font-bold border-none w-full mt-4">
                 Submit
               </button>
             </form>

@@ -14,7 +14,7 @@ import GuestRouter from "./Private/GuestRouter";
 import PrivateRouter from "./Private/PrivateRouter";
 import AboutUs from "../Pages/AboutUs";
 import SendParcel from "../Pages/SendParcel";
-import BeRider from "../Pages/BeRider";
+
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashLayout from "../Layouts/DashLayout";
 import Deliveries from "../Pages/Dashboard/Deliveries";
@@ -22,6 +22,9 @@ import Payment from "../Pages/Dashboard/Payment";
 import PaymentCanceled from "../Pages/Dashboard/PaymentCanceled";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
+import BeRider from "../Pages/BeRider";
+import RiderApplication from "../Pages/Dashboard/RiderApplication";
+import ManageUser from "../Pages/Dashboard/ManageUser";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +56,7 @@ const router = createBrowserRouter([
         hydrateFallbackElement: <Spinner></Spinner>,
       },
       {
-        path: "/be-a-rider",
+        path: "/rider",
         element: <BeRider></BeRider>,
         loader: () => axios("/warehouses.json"),
         hydrateFallbackElement: <Spinner></Spinner>,
@@ -118,6 +121,14 @@ const router = createBrowserRouter([
       {
         path: "/payment-success",
         element: <PaymentSuccess></PaymentSuccess>,
+      },
+      {
+        path: "/rider-application",
+        element: <RiderApplication></RiderApplication>,
+      },
+      {
+        path: "/manage-user",
+        element: <ManageUser></ManageUser>,
       },
     ],
   },

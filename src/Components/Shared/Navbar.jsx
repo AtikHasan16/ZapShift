@@ -95,7 +95,7 @@ const Navbar = () => {
             </Link>
           )}
           <div className="hidden md:block">
-            <Link to={"/be-a-rider"} className="btn  bg-primary">
+            <Link to={"/rider"} className="btn  bg-primary">
               Be a rider
             </Link>
           </div>

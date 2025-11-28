@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import Spinner from "../Components/Spinner";
+
 const SendParcel = () => {
   const { data } = useLoaderData();
   const duplicate = data.map((d) => d.region);
@@ -18,6 +19,7 @@ const SendParcel = () => {
     name: "sender_region",
     defaultValue: "Dhaka",
   });
+
   const receiverRegion = useWatch({
     control,
     name: "receiver_region",
@@ -161,6 +163,7 @@ const SendParcel = () => {
                   defaultValue={user?.displayName}
                   placeholder="Sender Name"
                   className="input w-full"
+                  disabled
                   {...register("sender_name")}
                 />
               </div>
@@ -172,6 +175,7 @@ const SendParcel = () => {
                   defaultValue={user?.email}
                   placeholder="Email"
                   className="input w-full"
+                  disabled
                   {...register("sender_email")}
                 />
               </div>

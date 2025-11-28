@@ -1,5 +1,5 @@
 import React from "react";
-import { BiHome } from "react-icons/bi";
+import { BiCycling, BiHome, BiUser } from "react-icons/bi";
 import { BsLayoutSidebar } from "react-icons/bs";
 import {} from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
@@ -40,6 +40,28 @@ const DashLayout = () => {
           {/* Settings icon */}
           <FaHistory size={24} />
           <span className="is-drawer-close:hidden">Payment History</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/rider-application"}
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Rider Applications"
+        >
+          {/* Settings icon */}
+          <BiCycling size={24}></BiCycling>
+          <span className="is-drawer-close:hidden">Rider Applications</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/manage-user"}
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="User Management"
+        >
+          {/* Settings icon */}
+          <BiUser size={24}></BiUser>
+          <span className="is-drawer-close:hidden">User Management</span>
         </NavLink>
       </li>
     </>
