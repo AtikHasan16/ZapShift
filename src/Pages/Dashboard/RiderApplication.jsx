@@ -22,6 +22,7 @@ const RiderApplication = () => {
       return res.data;
     },
   });
+  console.log(riders);
 
   if (isLoading) {
     return (
@@ -92,7 +93,7 @@ const RiderApplication = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 text-gray-700">{rider.email}</td>
-                    <td className="px-6 py-4 text-gray-700">{rider.phone}</td>
+                    <td className="px-6 py-4 text-gray-700">{rider.contact}</td>
                     <td className="px-6 py-4 text-gray-700">
                       {rider.driverLicense}
                     </td>
