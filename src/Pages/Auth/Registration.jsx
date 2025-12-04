@@ -7,8 +7,13 @@ import useAxios from "../../Hooks/useAxios";
 
 const Registration = () => {
   const { emailRegistration, updateUser, googleLogin } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const axiosSecure = useAxios();
+  console.log(errors);
 
   const handleRegistration = (data) => {
     console.log(data);
@@ -45,11 +50,12 @@ const Registration = () => {
         console.log(error);
       });
   };
+
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
         console.log(result);
-// Create user info object to send to the server
+        // Create user info object to send to the server
         const profileInfo = {
           email: result.user.email,
           displayName: result.user.displayName,
@@ -79,19 +85,27 @@ const Registration = () => {
               type="text"
               className="input rounded-xl input-lg w-full"
               placeholder="Name"
-              {...register("name")}
+              {...register("name", {
+                required: true,
+                minLength: { value: 4, message: "minimum 4 character needed" },
+              })}
             />
+            <p className="text-rose-500">{errors?.name?.message}</p>
           </div>
-
+          {/* Image input field */}
           <div>
-            <label className=" text-xl">Photo URL</label>
-            <input
-              type="url"
-              className="input rounded-xl input-lg w-full"
-              placeholder="https://"
-              required
-              {...register("photoURL")}
-            />
+            <label className=" text-xl">Upload Image</label>
+            <fieldset className="fieldset">
+              <input
+                type="file"
+                className="file-input file-input-primary rounded-xl input-lg w-full"
+                {...register("photo", { required: true })}
+              />
+              <label className="label">Max size 2MB</label>
+            </fieldset>
+            <p className="text-rose-500">
+              {errors?.photo?.type === "required" && "Upload your photo"}
+            </p>
           </div>
           <div>
             <label className=" text-xl">Email</label>
@@ -99,7 +113,7 @@ const Registration = () => {
               type="email"
               className="input rounded-xl input-lg w-full"
               placeholder="Email"
-              {...register("email")}
+              {...register("email", { required: true })}
             />
           </div>
           <div>
@@ -108,8 +122,16 @@ const Registration = () => {
               type="password"
               className="input rounded-xl input-lg w-full"
               placeholder="Password"
-              {...register("password")}
+              {...register("password", {
+                required: true,
+                minLength: {
+                  value: 8,
+                  message:
+                    "minimum 8 character including uppercase, lowercase and number",
+                },
+              })}
             />
+            <p className="text-red-500">{errors?.password?.message}</p>
           </div>
 
           <button className="btn btn-primary btn-block text-black mt-4">
